@@ -1,4 +1,4 @@
-import { db } from "@/db/client";
+import { db } from "@/db";
 import { users } from "@/db/schema";
 import { NextResponse } from "next/server";
 

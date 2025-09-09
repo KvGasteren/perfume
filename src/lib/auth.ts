@@ -1,10 +1,18 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db } from "@/db/client";
+import { db } from "@/db";
 import EmailProvider from "next-auth/providers/email";
 import { getServerSession, type NextAuthOptions } from "next-auth";
+import * as schema from "@/db/schema";
+
+
 
 export const authOptions: NextAuthOptions = {
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db, {
+    usersTable: schema.users,
+    accountsTable: schema.accounts,
+    sessionsTable: schema.sessions,
+    verificationTokensTable: schema.verificationTokens
+  }),
   providers: [
     EmailProvider({
       server: {
