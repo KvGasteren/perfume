@@ -8,18 +8,21 @@
     "start": "next start",
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:seed": "tsx src/db/seed/seed.ts",
     "drizzle:studio": "drizzle-kit studio",
     "lint": "eslint"
   },
   "dependencies": {
     "@auth/core": "^0.40.0",
     "@auth/drizzle-adapter": "^1.10.0",
-    "@neondatabase/serverless": "^1.0.1",
+    "@neondatabase/serverless": "^1.0.2",
     "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.44.5",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.6",
     "next": "15.5.2",
     "next-auth": "^4.24.11",
     "pg": "^8.16.3",
+    "postgres": "^3.4.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.0.3",
@@ -32,10 +35,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "drizzle-kit": "^0.31.4",
+    "drizzle-kit": "^0.31.5",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }
