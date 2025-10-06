@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Hero Section */}
-            <section className="hero bg-gradient-to-r from-primary-dark to-primary text-white p-8 md:p-16 text-center">
+            <section className="hero bg-gradient-to-r from-primary-dark to-primary p-8 md:p-16 text-center">
                 <h1 className="text-2xl md:text-4xl font-extrabold mb-4">Perfurmula</h1>
                 <p className="text-base md:text-lg mb-6">
                     Your hub for managing perfume formulas, ingredients and their allergens.
