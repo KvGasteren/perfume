@@ -1,14 +1,21 @@
-"use client";
+import "./globals.css";
+import type { Metadata } from "next";
+import SessionProviderWrapper from "./session-provider";
 
-import { SessionProvider } from "next-auth/react";
-import type { ReactNode } from "react";
-import './globals.css'
+export const metadata: Metadata = {
+  title: "Perfurmula",
+  description: "Manage perfume formulas, ingredients, and allergens.",
+};
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProviderWrapper>{children}</SessionProviderWrapper>
       </body>
     </html>
   );
