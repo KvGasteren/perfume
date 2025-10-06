@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { users } from "@/db/auth-schema";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";

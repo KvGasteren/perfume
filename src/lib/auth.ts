@@ -1,35 +1,33 @@
+import type { NextAuthOptions } from "next-auth";
+import EmailProvider from "next-auth/providers/email";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
-import EmailProvider from "next-auth/providers/email";
-import { getServerSession, type NextAuthOptions } from "next-auth";
-import * as schema from "@/db/schema";
+import * as authSchema from "@/db/auth-schema";
+import { Resend } from "resend";
 
-
+const resend = new Resend(process.env.EMAIL_SERVER_PASS!); // <-- standard var name
 
 export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db, {
-    usersTable: schema.users,
-    accountsTable: schema.accounts,
-    sessionsTable: schema.sessions,
-    verificationTokensTable: schema.verificationTokens
+    usersTable: authSchema.users,
+    accountsTable: authSchema.accounts,
+    sessionsTable: authSchema.sessions,
+    verificationTokensTable: authSchema.verificationTokens,
   }),
   providers: [
     EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST!,
-        port: Number(process.env.EMAIL_SERVER_PORT!),
-        auth: {
-          user: process.env.EMAIL_SERVER_USER!,
-          pass: process.env.EMAIL_SERVER_PASS!,
-        },
+      async sendVerificationRequest({ identifier, url }) {
+        await resend.emails.send({
+          from: process.env.EMAIL_FROM!,  // e.g. no-reply@perfume.koenvangasteren.nl
+          to: identifier,
+          subject: "Sign in to Perfume",
+          html: `<p>Click <a href="${url}">this magic link</a> to sign in.</p>`,
+          text: `Sign in: ${url}`,
+        });
       },
-      from: process.env.EMAIL_FROM!,
     }),
   ],
   session: { strategy: "database" },
-  secret: process.env.NEXTAUTH_SECRET,
+  // Optional: customize pages later
+  // pages: { signIn: "/signin" },
 };
-
-export function auth() {
-  return getServerSession(authOptions);
-}
